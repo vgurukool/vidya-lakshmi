@@ -2,8 +2,8 @@ replicaCount: 2
 
 image:
   repository: ayusing/vidya-lakshmi
-  pullPolicy: IfNotPresent
-  tag: "latest"
+  pullPolicy: Always
+  tag: "v1.2.0"
 
 imagePullSecrets: []
 nameOverride: ""
