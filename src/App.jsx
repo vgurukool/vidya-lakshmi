@@ -7,7 +7,7 @@ import { GrowthPlanner } from './pages/GrowthPlanner';
 import { ArchetypeReport } from './pages/ArchetypeReport';
 import { INTELLIGENCE_CATEGORIES } from './data/intelligenceData';
 
-export function App() {
+export function App({ keycloak }) {
   const [activeTab, setActiveTab] = useState('dashboard');
 
   // Load intelligence state from localStorage or defaults
@@ -76,7 +76,7 @@ export function App() {
       {/* Main Content Area */}
       <div style={{ flex: 1, marginLeft: '280px', display: 'flex', flexDirection: 'column', minWidth: 0 }}>
         {/* Top Header */}
-        <Header activeTab={activeTab} currentIntel={currentIntel} />
+        <Header activeTab={activeTab} currentIntel={currentIntel} keycloak={keycloak} />
 
         {/* Dynamic Pages */}
         <main style={{ flex: 1, backgroundColor: '#0B0F19' }}>

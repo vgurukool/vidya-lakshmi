@@ -2,7 +2,7 @@ import React from 'react';
 import { VEDIC_QUOTES } from '../data/intelligenceData';
 import { Compass, Sparkles, BookOpen, ExternalLink } from 'lucide-react';
 
-export function Header({ activeTab, currentIntel }) {
+export function Header({ activeTab, currentIntel, keycloak }) {
   const randomQuote = VEDIC_QUOTES[0];
 
   return (
@@ -44,23 +44,49 @@ export function Header({ activeTab, currentIntel }) {
         </div>
       </div>
 
-      {/* Vedic Wisdom Pill */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '12px',
-        background: 'rgba(30, 41, 59, 0.7)',
-        border: '1px solid #334155',
-        borderRadius: '20px',
-        padding: '6px 16px',
-        maxWidth: '520px'
-      }}>
-        <div style={{ fontSize: '11.5px', color: '#FBBF24', fontWeight: 700, whiteSpace: 'nowrap' }}>
-          {randomQuote.quote.split('(')[0]}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        {/* Vedic Wisdom Pill */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px',
+          background: 'rgba(30, 41, 59, 0.7)',
+          border: '1px solid #334155',
+          borderRadius: '20px',
+          padding: '6px 16px',
+          maxWidth: '520px'
+        }}>
+          <div style={{ fontSize: '11.5px', color: '#FBBF24', fontWeight: 700, whiteSpace: 'nowrap' }}>
+            {randomQuote.quote.split('(')[0]}
+          </div>
+          <div style={{ fontSize: '11px', color: '#94A3B8', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            "{randomQuote.translation}"
+          </div>
         </div>
-        <div style={{ fontSize: '11px', color: '#94A3B8', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-          "{randomQuote.translation}"
-        </div>
+
+        {keycloak && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: '10px', paddingLeft: '10px', borderLeft: '1px solid #334155' }}>
+            <span style={{ fontSize: '12px', color: '#38BDF8', fontWeight: 600 }}>
+              👤 {keycloak.tokenParsed?.preferred_username || 'user'}
+            </span>
+            <button
+              onClick={() => keycloak.logout({ redirectUri: window.location.origin })}
+              title="Sign Out of Keycloak SSO"
+              style={{
+                background: '#EF4444',
+                border: 'none',
+                padding: '5px 10px',
+                borderRadius: '6px',
+                color: 'white',
+                fontSize: '11px',
+                fontWeight: 600,
+                cursor: 'pointer'
+              }}
+            >
+              Sign Out
+            </button>
+          </div>
+        )}
       </div>
     </header>
   );
